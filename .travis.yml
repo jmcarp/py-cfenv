@@ -1,0 +1,19 @@
+language: python
+
+sudo: false
+
+python:
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "pypy"
+
+install:
+  - travis_retry pip install -U .
+  - travis_retry pip install -U -r dev-requirements.txt
+
+before_script:
+  - flake8 .
+
+script: py.test
