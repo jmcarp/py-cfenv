@@ -53,6 +53,9 @@ class TestEnv:
         monkeypatch.setenv(key, value)
         assert env.port == int(value)
 
+    def test_get_credential(self, env):
+        assert env.get_credential('password') == 'pass'
+
 class TestService:
 
     def test_name(self, env):
