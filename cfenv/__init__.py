@@ -38,11 +38,11 @@ class AppEnv(object):
     def uris(self):
         return self.app.get('uris')
 
-    def get_service(self, key):
+    def get_service(self, **kwargs):
         return next(
             (
                 service for service in self.services
-                if service.env.get('name') == key
+                if match(service.env, kwargs)
             ),
             None,
         )
@@ -78,3 +78,9 @@ class Service(object):
 
     def __repr__(self):
         return '<Service name={name}>'.format(name=self.name)
+
+def match(target, patterns):
+    for key, value in patterns.items():
+        if target.get(key) != value:
+            return False
+    return True

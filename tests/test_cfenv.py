@@ -23,6 +23,7 @@ def services(monkeypatch):
         'test-service': [
             {
                 'name': 'test-service',
+                'label': 'user-provided',
                 'plan': 'free',
                 'credentials': {
                     'url': 'https://test-service.com/',
@@ -59,10 +60,10 @@ class TestEnv:
 class TestService:
 
     def test_name(self, env):
-        service = env.get_service('test-service')
+        service = env.get_service(name='test-service')
         assert service.name == 'test-service'
 
     def test_get_url(self, env):
-        service = env.get_service('test-service')
+        service = env.get_service(label='user-provided')
         url = service.get_url(url='url', username='username', password='password')
         assert url == 'https://user:pass@test-service.com/'
