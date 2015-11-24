@@ -22,6 +22,14 @@ class AppEnv(object):
         return self.app.get('name')
 
     @property
+    def space(self):
+        return self.app.get('space_name')
+
+    @property
+    def index(self):
+        return os.getenv('CF_INSTANCE_INDEX')
+
+    @property
     def port(self):
         port = (
             os.getenv('PORT') or
