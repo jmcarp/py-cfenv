@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__version__ = '0.3.0'
+__version__ = '0.4.0'
 
 import os
 import json
@@ -55,14 +55,14 @@ class AppEnv(object):
             None,
         )
 
-    def get_credential(self, key):
+    def get_credential(self, key, default=None):
         return next(
             (
                 value for service in self.services
                 for name, value in service.credentials.items()
                 if key == name
             ),
-            os.getenv(key),
+            os.getenv(key, default),
         )
 
     def __repr__(self):

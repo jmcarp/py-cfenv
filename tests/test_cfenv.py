@@ -57,6 +57,10 @@ class TestEnv:
     def test_get_credential(self, env):
         assert env.get_credential('password') == 'pass'
 
+    def test_get_credential_default(self, env):
+        assert env.get_credential('missing') is None
+        assert env.get_credential('missing', 'default') == 'default'
+
 class TestService:
 
     def test_name(self, env):
