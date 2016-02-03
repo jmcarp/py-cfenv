@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+0.5.0 (2016-02-03)
+++++++++++++++++++
+* Allow regular expressions in get_service.
+
 0.4.0 (2015-11-24)
 ++++++++++++++++++
 * Add default value for get_credential.
