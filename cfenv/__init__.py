@@ -3,9 +3,12 @@
 __version__ = '0.4.0'
 
 import os
+import re
 import json
 
 import furl
+
+RegexType = type(re.compile(''))
 
 class AppEnv(object):
 
@@ -50,7 +53,7 @@ class AppEnv(object):
         return next(
             (
                 service for service in self.services
-                if match(service.env, kwargs)
+                if match_all(service.env, kwargs)
             ),
             None,
         )
@@ -87,8 +90,15 @@ class Service(object):
     def __repr__(self):
         return '<Service name={name}>'.format(name=self.name)
 
-def match(target, patterns):
-    for key, value in patterns.items():
-        if target.get(key) != value:
-            return False
-    return True
+def match_all(target, patterns):
+    return all(
+        match(target.get(key), pattern)
+        for key, pattern in patterns.items()
+    )
+
+def match(target, pattern):
+    if target is None:
+        return False
+    if isinstance(pattern, RegexType):
+        return pattern.search(target)
+    return pattern == target

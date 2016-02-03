@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 import json
 
 import pytest
@@ -20,10 +21,22 @@ def application(monkeypatch):
 @pytest.fixture
 def services(monkeypatch):
     services = {
-        'test-service': [
+        'test-credentials': [
             {
-                'name': 'test-service',
+                'name': 'test-credentials',
                 'label': 'user-provided',
+                'plan': 'free',
+                'credentials': {
+                    'url': 'https://test-service.com/',
+                    'username': 'user',
+                    'password': 'pass',
+                },
+            }
+        ],
+        'test-database': [
+            {
+                'name': 'test-database',
+                'label': 'webscaledb',
                 'plan': 'free',
                 'credentials': {
                     'url': 'https://test-service.com/',
@@ -64,8 +77,12 @@ class TestEnv:
 class TestService:
 
     def test_name(self, env):
-        service = env.get_service(name='test-service')
-        assert service.name == 'test-service'
+        service = env.get_service(name='test-credentials')
+        assert service.name == 'test-credentials'
+
+    def test_regex(self, env):
+        service = env.get_service(label=re.compile(r'^webscale'))
+        assert service.name == 'test-database'
 
     def test_get_url(self, env):
         service = env.get_service(label='user-provided')
