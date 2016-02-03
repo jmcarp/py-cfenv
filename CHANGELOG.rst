@@ -1,9 +1,10 @@
 Changelog
 ---------
 
-0.5.0 (2016-02-03)
+0.5.1 (2016-02-03)
 ++++++++++++++++++
 * Allow regular expressions in get_service.
+* Always return list from uris.
 
 0.4.0 (2015-11-24)
 ++++++++++++++++++

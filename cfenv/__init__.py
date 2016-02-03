@@ -6,7 +6,7 @@ import json
 
 import furl
 
-__version__ = '0.5.0'
+__version__ = '0.5.1'
 
 RegexType = type(re.compile(''))
 
@@ -47,7 +47,7 @@ class AppEnv(object):
 
     @property
     def uris(self):
-        return self.app.get('uris')
+        return self.app.get('uris', [])
 
     def get_service(self, **kwargs):
         return next(
