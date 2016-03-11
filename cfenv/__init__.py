@@ -30,7 +30,8 @@ class AppEnv(object):
 
     @property
     def index(self):
-        return os.getenv('CF_INSTANCE_INDEX')
+        index = os.getenv('CF_INSTANCE_INDEX')
+        return int(index) if index else None
 
     @property
     def port(self):

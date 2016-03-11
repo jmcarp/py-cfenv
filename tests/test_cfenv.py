@@ -58,14 +58,24 @@ class TestEnv:
     def test_name(self, env):
         assert env.name == 'test-app'
 
-    @pytest.mark.parametrize(['key', 'value'], [
-        ('PORT', '3000'),
-        ('CF_INSTANCE_PORT', '4000'),
-        ('VCAP_APP_PORT', '5000'),
+    @pytest.mark.parametrize(['raw', 'parsed'], [
+        ('0', 0),
+        ('1', 1),
+        ('', None),
     ])
-    def test_port(self, key, value, env, monkeypatch):
-        monkeypatch.setenv(key, value)
-        assert env.port == int(value)
+    def test_index(self, raw, parsed, env, monkeypatch):
+        monkeypatch.setenv('CF_INSTANCE_INDEX', raw)
+        assert env.index == parsed
+
+    @pytest.mark.parametrize(['key', 'raw', 'parsed'], [
+        ('PORT', '3000', 3000),
+        ('CF_INSTANCE_PORT', '4000', 4000),
+        ('VCAP_APP_PORT', '5000', 5000),
+        ('VCAP_APP_PORT', '', None),
+    ])
+    def test_port(self, key, raw, parsed, env, monkeypatch):
+        monkeypatch.setenv(key, raw)
+        assert env.port == parsed
 
     def test_get_credential(self, env):
         assert env.get_credential('password') == 'pass'
