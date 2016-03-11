@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+0.5.2 (2016-03-10)
+++++++++++++++++++
+* Parse instance index to int.
+
 0.5.1 (2016-02-03)
 ++++++++++++++++++
 * Allow regular expressions in get_service.
