@@ -23,7 +23,7 @@ Quickstart
     env.name  # 'test-app'
     env.port  # 5000
 
-    redis = env.get_service('redis')
+    redis = env.get_service(label='redis')
     redis.credentials  # {'url': '...', 'password': '...'}
     redis.get_url(host='hostname', password='password', port='port')  # redis://pass:host
 
