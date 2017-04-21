@@ -23,8 +23,46 @@ Quickstart
     env.name  # 'test-app'
     env.port  # 5000
 
-    redis = env.get_service(name='redis')
-    redis.credentials  # {'url': '...', 'password': '...'}
+    redis = env.get_service(label='redis')
+    redis.credentials  # {'uri': '...', 'password': '...'}
     redis.get_url(host='hostname', password='password', port='port')  # redis://pass:host
+
+Keys may change based on the service. To see what keys are available for the app's services:
+
+.. code-block:: bash
+
+    $ cf env my-app
+    
+    Getting env variables for app my-app in org my-org / space my-space as me@example.com...
+    OK
+
+    System-Provided:
+    {
+     "VCAP_SERVICES": {
+      "redis": [
+       {
+        "credentials": {
+         "hostname": "example.redis.host",
+         "password": "verysecurepassword",
+         "port": "30773",
+         "ports": {
+          "6379/tcp": "30773"
+         },
+         "uri": "redis://:verysecurepassword@example.redis.host:30773"
+        },
+        "label": "redis",
+        "name": "example-redis",
+        "plan": "standard",
+        "provider": null,
+        "syslog_drain_url": null,
+        "tags": [
+         "redis28",
+         "redis"
+        ],
+        "volume_mounts": []
+       }
+      ]
+     }
+    }
 
 .. _node-cfenv: https://github.com/cloudfoundry-community/node-cfenv/
