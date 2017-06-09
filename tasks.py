@@ -3,15 +3,15 @@
 from invoke import task, run
 
 @task
-def clean():
+def clean(ctx):
     run('rm -rf dist')
     run('rm -rf build')
     run('rm -rf cfenv.egg-info')
 
 @task
-def publish(test=False):
+def publish(ctx, test=False):
     """Publish to the cheeseshop."""
-    clean()
+    clean(ctx)
     if test:
         run('python setup.py register -r test sdist bdist_wheel', echo=True)
         run('twine upload dist/* -r test', echo=True)
