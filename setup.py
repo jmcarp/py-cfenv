@@ -41,7 +41,7 @@ setup(
     package_dir={'cfenv': 'cfenv'},
     include_package_data=True,
     install_requires=REQUIRES,
-    license=read('LICENSE'),
+    license='MIT',
     zip_safe=False,
     keywords='cloud foundry',
     classifiers=[
